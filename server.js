@@ -2,24 +2,16 @@ const exp = require("constants");
 const express = require("express");
 const PORT = process.env.PORT || 3001;
 const app = express();
-const mysql = require('mysql2');
+const db = require('./db/connection.js');
+const apiRoutes = require('./routes/apiRoutes');
 //This imports the inputcheck function used in the route to create new candidates
 const inputCheck = require('./utils/inputCheck');
 //NOW ADD MIDDLEWARE
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-// Connect to database
-const db = mysql.createConnection(
-  {
-    host: 'localhost',
-    // Your MySQL username,
-    user: 'root',
-    // Your MySQL password
-    password: 'A1-Branch3idinI',
-    database: 'election'
-  },
-  console.log('Connected to the election database.')
-);
+
+app.use('/api', apiRoutes);
+
 
 
 
